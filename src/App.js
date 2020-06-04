@@ -8,7 +8,6 @@ import Login from './components/LogReg/Login'
 
 
 function App() {
-  //const loggedIn = useSelector((state)=>state.klant.loggedIn)
 
   return (
     <div className="App">
