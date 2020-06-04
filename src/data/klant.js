@@ -17,7 +17,8 @@ export const initialState = {
             message:""
         }
     },
-    loggedIn: false
+    loggedIn: false,
+    test: "Ik ben een test"
 }  
 
 
@@ -26,6 +27,8 @@ export const initialState = {
 export const KLANT_START_LOGIN= "KLANT_START_LOGIN"
 export const KLANT_SUCCES_LOGIN= "KLANT_SUCCES_LOGIN"
 export const KLANT_ERROR_LOGIN= "KLANT_ERROR_LOGIN"
+
+export const KLANT_LOGOUT = "KLANT_LOGOUT";
 
 // Action Creators-----------------------------------------------------------------------------------------------------------------------
 
@@ -38,9 +41,7 @@ export const loginKlant = (username,password) => (dispatch) => {
     })
     .then(response => {
         console.log(response)
-        dispatch(
-            setLoginSucces(response.data.token)
-        )
+        dispatch(setLoginSucces(response.data.token))
     })
     .catch(error =>  dispatch(setLogginError(error)))
 }
@@ -52,19 +53,24 @@ export const setLoginStart = () => ({
 
 export const setLoginSucces = (data) => ({
     type: KLANT_SUCCES_LOGIN,
-    payload: data,
+    payload: data
   })
   
   export const setLogginError = (message) => ({
     type: KLANT_ERROR_LOGIN,
-    payload: message,
+    payload: message
   })
+
+  export const logoutKlant = () => ({
+    type: KLANT_LOGOUT,
+  });
 
 // Reducers--------------------------------------------------------------------------------------------------------------------------------
 
 export default (state = initialState, {type,payload}) => {
     switch(type){
         case KLANT_START_LOGIN:
+            console.log("hey")
             return {
                 ...state,
                 login: {
@@ -73,8 +79,8 @@ export default (state = initialState, {type,payload}) => {
                 }
             }
         case KLANT_SUCCES_LOGIN:
-            const klant = jwt_decode(payload.jwt) 
-            Cookies.set("jwt", payload.jwt);
+            const klant = jwt_decode(payload) 
+            Cookies.set("jwt", payload)
             return {
                 ...state,
                 user:{
@@ -85,9 +91,9 @@ export default (state = initialState, {type,payload}) => {
                 },
                 login:{
                     ...state,
-                    loading:false
+                    loading: false
                 },
-                loggedIn:true
+                loggedIn: true
             }
         case KLANT_ERROR_LOGIN:
             const message =
@@ -103,6 +109,11 @@ export default (state = initialState, {type,payload}) => {
                     },
                 loading: false,
                 }
+            }
+        case KLANT_LOGOUT:
+            return {
+                ...state,
+                loggedIn: false
             }
         default:
             return state;
