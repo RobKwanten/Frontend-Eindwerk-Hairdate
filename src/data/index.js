@@ -17,9 +17,18 @@ const appReducer = persistCombineReducers(persistConfig, {
   klant: klantReducer
 });
 
+const rootReducer = (state, action) => {
+  if (action.type === "Klant_LOGOUT") {
+    // window.localStorage.clear();
+    Cookies.remove("jwt");
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
-const store = createStore(
-  appReducer,
+
+export const store = createStore(
+  rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
 export const persistor = persistStore(store);

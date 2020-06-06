@@ -1,10 +1,9 @@
 import React from 'react';
 import { useSelector, Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import {helmet} from 'react-helmet-async';
+import { Route, Redirect} from 'react-router-dom';
 
 import store from "./data";
-import Login from './components/LogReg/Login'
+import LogReg from './components/LogReg/LogReg'
 import Hello from './components/Base/Hello'
 
 
@@ -20,7 +19,7 @@ function App() {
             exact
             path="/"
             render={() => {
-              return loggedIn? <Redirect to="/hello" /> : <Login />;
+              return loggedIn? <Redirect to="/hello" /> : <LogReg />
             }}  
           />
           <Route

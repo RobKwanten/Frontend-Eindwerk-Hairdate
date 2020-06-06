@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { loginKlant } from "./../../data/klant"
 
@@ -25,9 +25,7 @@ export default function Login(){
                     setPassword(e.target.value)
                 }}/>
                 <button type='submit'>Log in</button>
-            </form>
-            
+            </form>  
         </>
     )
-
 }

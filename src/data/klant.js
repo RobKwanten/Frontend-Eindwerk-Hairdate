@@ -15,20 +15,31 @@ export const initialState = {
         error: {
             bool: false,
             message:""
-        }
+        },
+        loading: false
     },
-    loggedIn: false,
-    test: "Ik ben een test"
+    register: {
+        error: {
+            bool: false,
+            message:""
+        },
+        loading: false
+    },
+    loggedIn: false
 }  
 
 
 // Action Types---------------------------------------------------------------------------------------------------------------------------
 
-export const KLANT_START_LOGIN= "KLANT_START_LOGIN"
-export const KLANT_SUCCES_LOGIN= "KLANT_SUCCES_LOGIN"
-export const KLANT_ERROR_LOGIN= "KLANT_ERROR_LOGIN"
+export const KLANT_START_LOGIN= 'KLANT_START_LOGIN'
+export const KLANT_SUCCES_LOGIN= 'KLANT_SUCCES_LOGIN'
+export const KLANT_ERROR_LOGIN= 'KLANT_ERROR_LOGIN'
 
-export const KLANT_LOGOUT = "KLANT_LOGOUT";
+export const KLANT_START_REG = 'KLANT_START_REG'
+export const KLANT_SUCCES_REG = 'KLANT_SUCCES_REG'
+export const KLANT_ERROR_REG = 'KLANT_ERROR_REG'
+
+export const KLANT_LOGOUT = 'KLANT_LOGOUT'
 
 // Action Creators-----------------------------------------------------------------------------------------------------------------------
 
@@ -43,7 +54,7 @@ export const loginKlant = (username,password) => (dispatch) => {
         console.log(response)
         dispatch(setLoginSucces(response.data.token))
     })
-    .catch(error =>  dispatch(setLogginError(error)))
+    .catch(error =>  dispatch(setLoginError(error.response.data.error)))
 }
 
 
@@ -56,7 +67,7 @@ export const setLoginSucces = (data) => ({
     payload: data
   })
   
-  export const setLogginError = (message) => ({
+  export const setLoginError = (message) => ({
     type: KLANT_ERROR_LOGIN,
     payload: message
   })
@@ -64,6 +75,43 @@ export const setLoginSucces = (data) => ({
   export const logoutKlant = () => ({
     type: KLANT_LOGOUT,
   });
+
+  export const regKlant = (email,password,naam,voornaam,postcode, gemeente, straat, huisnr, busnr, telnr) => (dispatch) => {
+    dispatch(setRegStart())
+    axios
+    .post(`${process.env.REACT_APP_API}/register`,{
+        "email": email,
+        "password": password,
+        "naam": naam,
+        "voornaam": voornaam,
+        "postcode": postcode,
+        "gemeente": gemeente,
+        "straat": straat,
+        "huisnr": huisnr,
+        "busnr": busnr,
+        "telnr": telnr   
+    })
+    .then(response => {
+        console.log(response)
+        dispatch(setRegSucces(response.data))
+    })
+    .catch(error =>  dispatch(setRegError(error.response.data.error)))
+}
+
+
+export const setRegStart = () => ({
+    type: KLANT_START_REG
+  });
+  
+  export const setRegSucces = (data) => ({
+    type: KLANT_SUCCES_REG,
+    payload: data
+  })
+  
+  export const setRegError = (message) => ({
+    type: KLANT_ERROR_REG,
+    payload: message
+  })
 
 // Reducers--------------------------------------------------------------------------------------------------------------------------------
 
@@ -74,7 +122,10 @@ export default (state = initialState, {type,payload}) => {
             return {
                 ...state,
                 login: {
-                    ...state.login,
+                    error:{
+                        bool:false,
+                        message:""
+                    },
                     loading: true
                 }
             }
@@ -108,6 +159,36 @@ export default (state = initialState, {type,payload}) => {
                         message: message,
                     },
                 loading: false,
+                }
+            }
+        case KLANT_START_REG:
+            return {
+                ...state,
+                register: {
+                    error:{
+                        bool:false,
+                        message:""
+                    },
+                    loading:true
+                }
+            }
+        case KLANT_SUCCES_REG:
+            return {
+                ...state,
+                register: {
+                    ...state.register,
+                    loading:false
+                }
+            }
+        case KLANT_ERROR_REG:
+            return {
+                ...state,
+                register:{
+                    error:{
+                        bool:true,
+                        message:payload
+                    },
+                    loading:false
                 }
             }
         case KLANT_LOGOUT:
