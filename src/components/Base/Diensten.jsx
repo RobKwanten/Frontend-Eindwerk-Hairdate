@@ -9,7 +9,7 @@ export default function Diensten(){
 
     return(
         <>
-            <h1>Hallo</h1>
+            <h1>hey</h1>
         </>
     )
 }

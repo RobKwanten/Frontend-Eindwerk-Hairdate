@@ -8,22 +8,24 @@ import Cookies from "js-cookie";
 import klantReducer from "./klant";
 import dienstenReducer from "./diensten"
 import kapperReducer from './kapper'
+import afspraakReducer from './afspraak'
 
 const persistConfig = {
   key: "root",
-  whitelist: ["klant","diensten","kapper"],
+  whitelist: ["klant","diensten","kapper", "afspraak"],
   storage,
 };
 
 const appReducer = persistCombineReducers(persistConfig, {
   klant: klantReducer,
   dienst: dienstenReducer,
-  kapper: kapperReducer
+  kapper: kapperReducer,
+  afspraak: afspraakReducer
 });
 
 const rootReducer = (state, action) => {
   if (action.type === "KLANT_LOGOUT") {
-    // window.localStorage.clear();
+    window.localStorage.clear();
     Cookies.remove("jwt");
   }
   return appReducer(state, action);

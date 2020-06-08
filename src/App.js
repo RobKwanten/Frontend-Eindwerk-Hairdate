@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector, Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route, Redirect} from 'react-router-dom';
 
-import store from "./data";
 import LogReg from './components/LogReg/LogReg'
 import Hello from './components/Base/Hello'
 import Diensten from './components/Base/Diensten'
 import Kapper from './components/Kappers/Kappers'
+import KapperDetail from './components/Kappers/KapperDetail'
 
 
 function App() {
@@ -36,9 +36,15 @@ function App() {
             }}
           />
           <Route
-            path="/kapper"
+            path="/kappers"
             render={() => {
               return loggedIn ? <Kapper /> : ""
+            }}
+          />
+          <Route
+            path="/kapper/:id"
+            render={() => {
+              return loggedIn ? <KapperDetail /> : ""
             }}
           />
       </div>

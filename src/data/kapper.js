@@ -5,7 +5,8 @@ import axios from '../axios'
 export const initialState= {
     data: [],
     loading: false,
-    error: ""
+    error: "",
+    detailKapper: []
 }
 
 // Action Types---------------------------------------------------------------------------------------------------------------------------
@@ -14,6 +15,8 @@ const FETCH_KAPPERS_START = 'FETCH_KAPPERS_START'
 const FETCH_KAPPERS_SUCCES = 'FETCH_KAPPERS_SUCCES'
 const FETCH_KAPPERS_ERROR = 'FETCH_KAPPERS_ERROR'
 
+const SET_DETAILKAPPER_START = 'SET_DETAILKAPPER_START'
+
 // Action Creators------------------------------------------------------------------------------------------------------------------------
 
 export const getKappers = str => dispatch => {
@@ -21,7 +24,7 @@ export const getKappers = str => dispatch => {
     axios
     .get(`${process.env.REACT_APP_API}/kappers.json?naam=${str}`)
     .then(response => {
-        if (response === "False") {
+        if (response.data.length == 0 ) {
             dispatch(setKappersError("No kappers found"));
           } else {
             console.log(response.data)
@@ -65,9 +68,14 @@ export default (state=initialState, {type, payload}) => {
             }
         case FETCH_KAPPERS_ERROR:
             return {
-                ...state,
+                data: [],
                 loading: false,
                 error:payload
+            }
+        case SET_DETAILKAPPER_START:
+            return {
+                ...state,
+                detailKapper: payload
             }
         default:
             return state;

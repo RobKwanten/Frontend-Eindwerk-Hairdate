@@ -1,17 +1,12 @@
 import axios from 'axios';
+import axiosJWT  from '../axios'
 import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode';
 
 // Initial State--------------------------------------------------------------------------------------------------------------------------
 
 export const initialState = {
     loggedIn: false,
-    klant: {
-        id: 0,
-        voornaam: "",
-        naam: "",
-        email:""
-    },
+    klant: [],
     login: {
         error: {
             bool: false,
@@ -35,6 +30,9 @@ export const KLANT_START_LOGIN= 'KLANT_START_LOGIN'
 export const KLANT_SUCCES_LOGIN= 'KLANT_SUCCES_LOGIN'
 export const KLANT_ERROR_LOGIN= 'KLANT_ERROR_LOGIN'
 
+export const KLANT_START_SET= 'KLANT_START_SET'
+export const KLANT_SUCCES_SET= 'KLANT_SUCCES_SET'
+
 export const KLANT_START_REG = 'KLANT_START_REG'
 export const KLANT_SUCCES_REG = 'KLANT_SUCCES_REG'
 export const KLANT_ERROR_REG = 'KLANT_ERROR_REG'
@@ -51,8 +49,19 @@ export const loginKlant = (username,password) => (dispatch) => {
             "password": password    
     })
     .then(response => {
-        console.log(response)
+        dispatch(setKlant(username));
         dispatch(setLoginSucces(response.data.token))
+    })
+    .catch(error =>  dispatch(setLoginError(error.response.data.error)))
+}
+
+export const setKlant = (username) => (dispatch) => {
+    dispatch(setKlantStart())
+    axiosJWT
+    .get(`${process.env.REACT_APP_API}/klants.json?email=${username}`)
+    .then(response => {
+        console.log(response)
+        dispatch(setKlantSucces(response.data))
     })
     .catch(error =>  dispatch(setLoginError(error.response.data.error)))
 }
@@ -67,9 +76,18 @@ export const setLoginSucces = (data) => ({
     payload: data
   })
   
-  export const setLoginError = (message) => ({
+export const setLoginError = (message) => ({
     type: KLANT_ERROR_LOGIN,
     payload: message
+  })
+
+export const setKlantStart = () => ({
+    type: KLANT_START_SET
+})
+
+export const setKlantSucces = (data) => ({
+    type: KLANT_SUCCES_SET,
+    payload: data
   })
 
   export const logoutKlant = () => ({
@@ -92,8 +110,8 @@ export const setLoginSucces = (data) => ({
         "telnr": telnr   
     })
     .then(response => {
-        console.log(response)
-        dispatch(setRegSucces(response.data))
+        console.log(response[0])
+        dispatch(setRegSucces(response.data[0]))
     })
     .catch(error =>  dispatch(setRegError(error.response.data.error)))
 }
@@ -129,16 +147,9 @@ export default (state = initialState, {type,payload}) => {
                 }
             }
         case KLANT_SUCCES_LOGIN:
-            const klant = jwt_decode(payload) 
             Cookies.set("jwt", payload)
             return {
                 ...state,
-                user:{
-                    id: klant.id,
-                    voornaam: klant.voornaam,
-                    naam: klant.naam,
-                    email: klant.email
-                },
                 login:{
                     ...state,
                     loading: false
@@ -159,6 +170,11 @@ export default (state = initialState, {type,payload}) => {
                     },
                 loading: false,
                 }
+            }
+        case KLANT_SUCCES_SET:
+            return {
+                ...state,
+                klant: payload
             }
         case KLANT_START_REG:
             return {

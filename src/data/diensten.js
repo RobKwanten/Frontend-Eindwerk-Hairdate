@@ -18,7 +18,7 @@ const FETCH_DIENSTEN_ERROR = "FETCH_DIENSTEN_ERROR";
 
 // Action Creators------------------------------------------------------------------------------------------------------------------------
 
-export const getDiensten = () => dispatch => {
+export const getDiensten = (id) => dispatch => {
     dispatch(setDienstenStart())
     axios
     .get(`${process.env.REACT_APP_API}/dienstens`)
