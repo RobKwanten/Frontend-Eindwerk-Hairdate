@@ -6,22 +6,25 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import Cookies from "js-cookie";
 
 import klantReducer from "./klant";
+import dienstenReducer from "./diensten"
+import kapperReducer from './kapper'
 
 const persistConfig = {
   key: "root",
-  whitelist: ["klant"],
+  whitelist: ["klant","diensten","kapper"],
   storage,
 };
 
 const appReducer = persistCombineReducers(persistConfig, {
-  klant: klantReducer
+  klant: klantReducer,
+  dienst: dienstenReducer,
+  kapper: kapperReducer
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === "Klant_LOGOUT") {
+  if (action.type === "KLANT_LOGOUT") {
     // window.localStorage.clear();
     Cookies.remove("jwt");
-    state = undefined;
   }
   return appReducer(state, action);
 };

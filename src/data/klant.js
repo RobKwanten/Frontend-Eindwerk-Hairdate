@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 // Initial State--------------------------------------------------------------------------------------------------------------------------
 
 export const initialState = {
+    loggedIn: false,
     klant: {
         id: 0,
         voornaam: "",
@@ -24,8 +25,7 @@ export const initialState = {
             message:""
         },
         loading: false
-    },
-    loggedIn: false
+    }
 }  
 
 
@@ -41,7 +41,7 @@ export const KLANT_ERROR_REG = 'KLANT_ERROR_REG'
 
 export const KLANT_LOGOUT = 'KLANT_LOGOUT'
 
-// Action Creators-----------------------------------------------------------------------------------------------------------------------
+// Action Creators------------------------------------------------------------------------------------------------------------------------
 
 export const loginKlant = (username,password) => (dispatch) => {
     dispatch(setLoginStart())
@@ -118,7 +118,6 @@ export const setRegStart = () => ({
 export default (state = initialState, {type,payload}) => {
     switch(type){
         case KLANT_START_LOGIN:
-            console.log("hey")
             return {
                 ...state,
                 login: {
@@ -191,6 +190,7 @@ export default (state = initialState, {type,payload}) => {
                     loading:false
                 }
             }
+
         case KLANT_LOGOUT:
             return {
                 ...state,
