@@ -5,8 +5,7 @@ import { Route, Redirect} from 'react-router-dom';
 import LogReg from './components/LogReg/LogReg'
 import Hello from './components/Base/Hello'
 import Diensten from './components/Base/Diensten'
-import Kapper from './components/Kappers/Kappers'
-import KapperDetail from './components/Kappers/KapperDetail'
+import Afspraak from './components/Afspraken/Afspraak'
 
 
 function App() {
@@ -36,15 +35,9 @@ function App() {
             }}
           />
           <Route
-            path="/kappers"
+            path="/afspraak"
             render={() => {
-              return loggedIn ? <Kapper /> : ""
-            }}
-          />
-          <Route
-            path="/kapper/:id"
-            render={() => {
-              return loggedIn ? <KapperDetail /> : ""
+              return loggedIn ? <Afspraak /> : ""
             }}
           />
       </div>

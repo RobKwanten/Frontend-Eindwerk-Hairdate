@@ -9,10 +9,11 @@ import klantReducer from "./klant";
 import dienstenReducer from "./diensten"
 import kapperReducer from './kapper'
 import afspraakReducer from './afspraak'
+import agendaReducer from './agenda'
 
 const persistConfig = {
   key: "root",
-  whitelist: ["klant","diensten","kapper", "afspraak"],
+  whitelist: ["klant","diensten","kapper", "afspraak","agenda"],
   storage,
 };
 
@@ -20,12 +21,14 @@ const appReducer = persistCombineReducers(persistConfig, {
   klant: klantReducer,
   dienst: dienstenReducer,
   kapper: kapperReducer,
-  afspraak: afspraakReducer
+  afspraak: afspraakReducer,
+  agenda: agendaReducer
 });
 
 const rootReducer = (state, action) => {
   if (action.type === "KLANT_LOGOUT") {
     window.localStorage.clear();
+    localStorage.clear();
     Cookies.remove("jwt");
   }
   return appReducer(state, action);

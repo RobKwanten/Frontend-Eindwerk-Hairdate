@@ -5,10 +5,10 @@ import axios from '../axios'
 export const initialState= {
     kapper: [],
     dienst: "",
-    klant: "",
+    datum: "",
+    beginuur: "",
     loading: false,
-    error: "",
-    test: ""
+    error: ""
 }
 
 // Action Types---------------------------------------------------------------------------------------------------------------------------
@@ -17,60 +17,81 @@ const MAKE_AFSPRAAK_START = 'MAKE_AFSPRAAK_START';
 const MAKE_AFSPRAAK_SUCCES = 'MAKE_AFSPRAAK_SUCCES';
 const MAKE_AFSPRAAK_ERROR = 'MAKE_AFSPRAAK_ERROR';
 
-const SET_KAPPER_START = 'SET_KAPPER_START';
-const SET_KAPPER_SUCCES = 'SET_KAPPER_SUCCES';
-const SET_KAPPER_ERROR = 'SET_KAPPER_ERROR';
+const SET_KAPPER_AFSPRAAK = 'SET_KAPPER_AFSPRAAK';
+const SET_DIENST_AFSPRAAK = 'SET_DIENST_AFSPRAAK';
+const SET_DATUM_AFSPRAAK = 'SET_DATUM_AFSPRAAK';
+const SET_BEGINUUR_AFSPRAAK = 'SET_BEGINUUR_AFSPRAAK';
 
-const ZEG_HALLO = 'ZEG_HALLO'
+const CLEAR_AFSPRAAK = 'CLEAR_AFSPRAAK'
+
+
 
 // Action Creators------------------------------------------------------------------------------------------------------------------------
 
-export const setAfspraakKapper = (id) => dispatch => {
-    dispatch(setKapperStart())
-    axios
-    .get(`${process.env.REACT_APP_API}/kappers/${id}`)
-    .then(response => {
-        dispatch(setKapperSucces(response.data))
-    })
-    .catch(error =>  dispatch(setKapperError(error.response.data.error)))
-}
 
-
-export const setKapperStart = () => ({
-    type: SET_KAPPER_START
-})
-
-export const setKapperSucces = (data) => ({
-    type: SET_KAPPER_SUCCES,
+export const setKapperAfspraak = (data) => ({
+    type: SET_KAPPER_AFSPRAAK,
     payload: data
   })
-  
-  export const setKapperError = (message) => ({
-    type: SET_KAPPER_ERROR,
-    payload: message
+
+export const setDienstAfspraak = (data) => ({
+    type: SET_DIENST_AFSPRAAK,
+    payload: data
   })
+
+export const setDatumAfspraak = (data) => ({
+    type: SET_DATUM_AFSPRAAK,
+    payload: data
+  })
+
+export const setBeginuurAfspraak = (data) => ({
+    type: SET_BEGINUUR_AFSPRAAK,
+    payload: data
+})
+
+export const clearAfspraak = () => ({
+    type: CLEAR_AFSPRAAK
+})
+
 
 // Reducers--------------------------------------------------------------------------------------------------------------------------------
 
 export default (state=initialState, { type , payload }) => {
     switch(type){
-        case SET_KAPPER_START:
+        case SET_KAPPER_AFSPRAAK:
             return {
                 ...state,
-                loading: true,
-                error:""
+                kapper: payload,
+                dienst:"",
+                datum:"",
+                beginuur: ""
             }
-        case SET_KAPPER_SUCCES:
-            console.log(payload)
+        case SET_DIENST_AFSPRAAK:
             return {
                 ...state,
-                kapper: payload
+                dienst: payload,
+                datum:"",
+                beginuur: ""
             }
-        case SET_KAPPER_ERROR:
+        case SET_DATUM_AFSPRAAK:
             return {
                 ...state,
+                datum: payload,
+                beginuur: ""
+            }
+        case SET_BEGINUUR_AFSPRAAK:
+            return {
+                ...state,
+                beginuur: payload
+            }
+        case CLEAR_AFSPRAAK:
+            return{
+                kapper: [],
+                dienst: "",
+                datum: "",
+                beginuur:"",
                 loading: false,
-                error: payload
+                error: ""
             }
         default:
             return state

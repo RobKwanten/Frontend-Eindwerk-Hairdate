@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import KappersForm from './KappersForm'
 import {useSelector, useDispatch} from 'react-redux'
-import {setAfspraakKapper,setKapperSucces} from '../../data/afspraak'
-import KapperDetail from './KapperDetail'
+import {setKapperAfspraak} from '../../data/afspraak'
+import {clearAgenda} from '../../data/agenda'
+
 
 export default () => {
     const dispatch= useDispatch();
-    const {loading, error, data} = useSelector(state => state.kapper)
+    const {data} = useSelector(state => state.kapper)    
 
+ 
     return(
         <>
             <KappersForm/>
@@ -17,13 +19,13 @@ export default () => {
             <li key={kapper.id} >
               {kapper.naam}
             <a href="#" onClick={()=>{
-                dispatch(setAfspraakKapper(kapper.id))
+                dispatch(setKapperAfspraak(kapper))
+                dispatch(clearAgenda())
                 }}>Detail</a>
             </li> 
           ))}
             </ul>
             <hr></hr>
-            <KapperDetail/>
         </>
     )
 }

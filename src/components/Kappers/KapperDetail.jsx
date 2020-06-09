@@ -1,25 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import {setAfspraakKapper} from '../../data/afspraak'
- 
+import DatePicker from './../Afspraken/DatePicker'
+import {setDienstAfspraak} from '../../data/afspraak'
+import {clearAgenda} from '../../data/agenda'
 
-export default () => {
+
+export default ({kapper}) => {
     const dispatch= useDispatch();
+    const {dienst} = useSelector(state=>state.afspraak)
 
-    const [dienst, setDienst]= useState("");
-    const kapper = useSelector(state=>state.afspraak.kapper)
-    console.log(dienst)
     return(
         <>
         <p>Naam: {kapper.naam}</p>
         <ul>
             {kapper.dienstenKappers.map(dienst => (
                  <li key={dienst.duur}>{dienst.Diensten.naam}<a href="#" onClick={()=>{
-                     setDienst(dienst)
-                    }}>Kies dienst</a></li> 
-                 
+                    dispatch(setDienstAfspraak(dienst))
+                    dispatch(clearAgenda())
+                    }}>Kies dienst</a></li>     
             ))}
         </ul>
+        <hr></hr>
         </>
     )
 }
