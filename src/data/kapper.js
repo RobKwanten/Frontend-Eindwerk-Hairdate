@@ -22,14 +22,9 @@ const SET_DETAILKAPPER_START = 'SET_DETAILKAPPER_START'
 export const getKappers = str => dispatch => {
     dispatch(setKappersStart());
     axios
-    .get(`${process.env.REACT_APP_API}/kappers.json?naam=${str}`)
+    .get(`${process.env.REACT_APP_API}/kappers?naam=${str}`)
     .then(response => {
-        if (response.data.length == 0 ) {
-            dispatch(setKappersError("No kappers found"));
-          } else {
-            console.log(response.data)
-            dispatch(setKappersSucces(response.data));
-          }
+        dispatch(setKappersSucces(response.data['hydra:member']));
     })
     .catch(error => dispatch(setKappersError("API could not be reached")));
 }
@@ -58,7 +53,7 @@ export default (state=initialState, {type, payload}) => {
                 ...state,
                 data:[],
                 loading:true,
-                error:""
+                error: ""
             }
         case FETCH_KAPPERS_SUCCES:
             return {
