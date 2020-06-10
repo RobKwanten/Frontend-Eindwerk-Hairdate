@@ -49,6 +49,7 @@ export default () => {
         const year = selectedDate.getFullYear();
         if(selectedDate){
             dispatch(getAgenda(year+"-"+month+"-"+day, dienst.duur, kapper.id))
+            dispatch(setDatumAfspraak(year+"-"+month+"-"+day))
         }
     }
 
@@ -59,7 +60,6 @@ export default () => {
                 selected={selectedDate}
                 onChange={date =>{
                     setSelectedDate(date) 
-                    dispatch(setDatumAfspraak(date))
                     } 
                 }
                 dateFormat='dd/MM/yyyy'
@@ -67,8 +67,7 @@ export default () => {
                 filterDate= {validDate}
                 />
                 <input type="submit" value="Zoek momenten" />
-            </form>
-            
+            </form>  
         </>
     )
 }

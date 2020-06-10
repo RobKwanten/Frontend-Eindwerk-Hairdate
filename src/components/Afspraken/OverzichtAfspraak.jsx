@@ -1,21 +1,19 @@
 import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 
+import {makeAfspraak} from '../../data/afspraak'
+
 export default () => {
     const [date, setDate] = useState()
 
     const dispatch = useDispatch();
     const {kapper,dienst,datum,beginuur} = useSelector(state => state.afspraak) 
-    console.log(kapper,dienst,datum,beginuur)
+    const {klant} = useSelector(state => state.klant)
+    
+    console.log(datum, beginuur, dienst.duur, klant[0].id, kapper.id, dienst.id)
 
-    const datumArr = datum.slice(0,10).split("-")
-    const format_datum = datumArr[2]+"/"+datumArr[1]+"/"+datumArr[0]
-
-    const stringifyDate = () => {
-        const day = datum.getDate();
-        const month = datum.getMonth()+1;
-        const year = datum.getFullYear();
-        return(day+"/"+month+"/"+year)
+    const handleOnClick = () => {
+       dispatch(makeAfspraak(datum, beginuur, dienst.duur, klant[0].id, kapper.id, dienst.id))
     }
 
     return (
@@ -27,10 +25,10 @@ export default () => {
             <p>Tel: {kapper.telnr}</p>
             <h3>Afspraak</h3>
             <p>Dienst: {dienst.Diensten.naam}</p>
-            <p>Datum: {format_datum}</p>
+            <p>Datum: {datum}</p>
             <p>Uur : {beginuur}</p>
 
-            <button>Submit</button>
+            <button onClick={handleOnClick}>Submit</button>
         </>
     )
 }

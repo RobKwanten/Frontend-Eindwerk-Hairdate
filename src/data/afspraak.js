@@ -5,7 +5,7 @@ import axios from '../axios'
 export const initialState= {
     kapper: [],
     dienst: "",
-    datum: "",
+    datum: null,
     beginuur: "",
     loading: false,
     error: ""
@@ -27,6 +27,37 @@ const CLEAR_AFSPRAAK = 'CLEAR_AFSPRAAK'
 
 
 // Action Creators------------------------------------------------------------------------------------------------------------------------
+
+export const makeAfspraak = (datum, begintijd, duur, klant, kapper, dienst) => dispatch => {
+    dispatch(makeAfspraakStart())
+    axios
+    .post(`${process.env.REACT_APP_API}/afspraak`,{
+        "notities": "",
+        "datum": datum,
+        "begintijd": begintijd,
+        "duur": duur,
+        "Klant": klant,
+        "Kapper": kapper,
+        "Dienst": dienst
+    })
+    .then(response => {
+        dispatch(makeAfspraakSucces)
+    })
+    .catch(error => dispatch(makeAfspraakError("API could not be reached")));
+}
+
+export const makeAfspraakStart = () => ({
+    type: MAKE_AFSPRAAK_START
+  });
+  
+  export const makeAfspraakSucces = () => ({
+    type: MAKE_AFSPRAAK_SUCCES
+  })
+  
+  export const makeAfspraakError = (message) => ({
+    type: MAKE_AFSPRAAK_ERROR,
+    payload: message
+  })
 
 
 export const setKapperAfspraak = (data) => ({
@@ -58,6 +89,27 @@ export const clearAfspraak = () => ({
 
 export default (state=initialState, { type , payload }) => {
     switch(type){
+        case MAKE_AFSPRAAK_START:
+            return {
+                ...state,
+                loading:true,
+                error: ""
+            }
+        case MAKE_AFSPRAAK_SUCCES:
+            return {
+                ...state,
+                kapper: [],
+                dienst: "",
+                datum: null,
+                beginuur: "",
+                loading: false
+            }
+        case MAKE_AFSPRAAK_ERROR:
+            return {
+                ...state,
+                loading:false,
+                error: payload
+            }
         case SET_KAPPER_AFSPRAAK:
             return {
                 ...state,

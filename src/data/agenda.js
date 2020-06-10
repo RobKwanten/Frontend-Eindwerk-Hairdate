@@ -21,7 +21,7 @@ const CLEAR_AGENDA = 'CLEAR_AGENDA';
 export const getAgenda = (datum, duur, kapper) => dispatch => {
     dispatch(setAgendaStart());
     axios
-    .get(`${process.env.REACT_APP_API}/afspraak?datum=${datum}&kapper=${kapper}&duur=${duur}`)
+    .get(`${process.env.REACT_APP_API}/agenda?datum=${datum}&kapper=${kapper}&duur=${duur}`)
     .then(response => {
         console.log(response)
         dispatch(setAgendaSucces(response.data))
