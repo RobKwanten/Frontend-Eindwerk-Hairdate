@@ -15,6 +15,7 @@ export default () => {
             setError(true);
           } else {
             setValue("");
+            setError(false)
             dispatch(getKappers(field.value))
             dispatch(clearAfspraak())
             dispatch(clearAgenda())
@@ -23,7 +24,7 @@ export default () => {
 
     return(
         <form onSubmit={submitHandler}>
-            <input type="text" {...field} className={error ? "error" : ""} />
+            <input type="text" {...field}/>
             <input type="submit" value="Zoek kapper" />
         </form>
     )

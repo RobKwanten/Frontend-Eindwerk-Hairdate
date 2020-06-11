@@ -24,9 +24,12 @@ export const getKappers = str => dispatch => {
     axios
     .get(`${process.env.REACT_APP_API}/kappers?naam=${str}`)
     .then(response => {
+        if (response.data['hydra:member'].length == 0){
+            dispatch(setKappersError("Geen kappers gevonden"))
+        }
         dispatch(setKappersSucces(response.data['hydra:member']));
     })
-    .catch(error => dispatch(setKappersError("API could not be reached")));
+    .catch(dispatch(setKappersError("API could not be reached")));
 }
 
 export const setKappersStart = () => ({

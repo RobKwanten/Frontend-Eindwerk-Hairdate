@@ -2,11 +2,14 @@ import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import {useField} from '../../hooks'
+
 import {setDatumAfspraak} from '../../data/afspraak'
-import {getAgenda} from '../../data/agenda'
+import {getAgenda , setAgendaError} from '../../data/agenda'
 
 export default () => {
     const dispatch= useDispatch();
+    const { error, setError, setValue, ...field } = useField("", true);
     const [selectedDate, setSelectedDate] = useState();
 
     // Maakt een object van alle data die de kapper open is
@@ -43,13 +46,16 @@ export default () => {
 
     const {kapper, dienst} = useSelector(state => state.afspraak)
 
-    const handleSubmit = () => {
-        const day = selectedDate.getDate();
-        const month = selectedDate.getMonth()+1;
-        const year = selectedDate.getFullYear();
+    const handleSubmit = (e) => {
+        e.preventDefault()
         if(selectedDate){
+            const day = selectedDate.getDate();
+            const month = selectedDate.getMonth()+1;
+            const year = selectedDate.getFullYear();
             dispatch(getAgenda(year+"-"+month+"-"+day, dienst.duur, kapper.id))
             dispatch(setDatumAfspraak(year+"-"+month+"-"+day))
+        } else {
+            dispatch(setAgendaError("Kies een datum"))
         }
     }
 

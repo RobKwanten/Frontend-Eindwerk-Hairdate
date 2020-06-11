@@ -43,7 +43,7 @@ export const makeAfspraak = (datum, begintijd, duur, klant, kapper, dienst) => d
     .then(response => {
         dispatch(makeAfspraakSucces)
     })
-    .catch(error => dispatch(makeAfspraakError("API could not be reached")));
+    .catch(dispatch(makeAfspraakError("API could not be reached")));
 }
 
 export const makeAfspraakStart = () => ({
