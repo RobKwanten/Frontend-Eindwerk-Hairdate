@@ -11,17 +11,26 @@ export default ({kapper}) => {
     const {dienst} = useSelector(state=>state.afspraak)
 
     return(
-        <>
-        <p>Naam: {kapper.naam}</p>
-        <ul>
-            {kapper.dienstenKappers.map(dienst => (
-                 <li key={dienst.duur}>{dienst.Diensten.naam}<a href="#" onClick={()=>{
-                    dispatch(setDienstAfspraak(dienst))
-                    dispatch(clearAgenda())
-                    }}>Kies dienst</a></li>     
-            ))}
-        </ul>
-        <hr></hr>
-        </>
+        <div>
+            <h2>{kapper.naam}</h2>
+            <div>
+                <h3>Gegevens</h3>
+                <p>Adres: {kapper.straat} {kapper.huisnr} {kapper.gemeente} {kapper.postcode}</p>
+                <p>Email: {kapper.email}</p>
+                <p>Tel: {kapper.telnr}</p>
+            </div>
+            <div>
+                <h3>Diensten</h3>
+                <ul>
+                {kapper.dienstenKappers.map(dienst => (
+                    <li key={dienst.duur}><a href="#" onClick={()=>{
+                        dispatch(setDienstAfspraak(dienst))
+                        dispatch(clearAgenda())
+                        }}>{dienst.Diensten.naam} {dienst.prijs}€</a></li>     
+                ))}
+                </ul>
+            </div>
+           
+        </div>
     )
 }

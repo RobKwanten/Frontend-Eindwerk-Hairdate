@@ -1,38 +1,101 @@
-.App {
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+:root {
+  --brown: #AA8B59;
+  --gray: rgb(14, 19, 25);
+  --gray--t: rgba(14, 19, 25, 0);
+  --ligth--gray: #7C7C7C;
+  --body-font: 'Josefin Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--body-font);
+  font-size: 90%;
+  color: white;
   text-align: center;
+  background: var(--gray);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  overflow:hidden;
+  background: linear-gradient(
+    var(--gray) 30%, var(--gray--t)
+  );
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size: 3.4rem;
+  letter-spacing: 0.2rem;
+  font-family: 'Cinzel', serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+nav {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin: 0 0 2rem 0;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0.3rem 0;
+  margin: 0 1rem;
+}
+
+nav .active{
+  border-bottom: 1px solid var(--brown);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+form, DatePicker {
+  border: solid 1px var(--brown);
+  padding: 3rem;
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  margin: 0 0 1rem 0;
+}
+
+input:focus {
+  border-color: white;
+  outline: 0;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+label {
+  display: block;
+  text-align: left;
+  color: var(--ligth--gray);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  width: 100%;
+  background: none;
+  color: var(--ligth--gray);
+  border: 1px solid var(--ligth--gray);
+  padding: 1.5rem;
+}
+
+
+.button {
+  background: var(--brown);
+  color: white;
+  border: 0;
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  padding: 1.5rem;
+  font-size: 1.0rem;
+  letter-spacing: 0.1rem;
 }

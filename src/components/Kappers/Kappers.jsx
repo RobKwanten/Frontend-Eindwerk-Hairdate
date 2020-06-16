@@ -11,10 +11,10 @@ export default () => {
 
  
     return(
-        <>
+        <div className="KappersContainer box">
+            <h2>Kappers</h2>
             <KappersForm/>
              {data.length !== 0  ? <KappersResult/> : <Error message={error}/>}
-            <hr></hr>
-        </>
+        </div>
     )
 }

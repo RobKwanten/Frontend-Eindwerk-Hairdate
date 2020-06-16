@@ -9,12 +9,10 @@ export default () => {
     const {data} = useSelector(state => state.agenda)
 
     return (
-        <>
-            <ul>
-                {data.map(moment => <li onClick={()=>{
-                    dispatch(setBeginuurAfspraak(moment))
-                }} key={moment}>{moment}</li>)}
-            </ul>
-        </>
+        <ul>
+            {data.map(moment => <li onClick={()=>{
+                dispatch(setBeginuurAfspraak(moment))
+            }} key={moment}><a>{moment}</a></li>)}
+        </ul>
     )
 }

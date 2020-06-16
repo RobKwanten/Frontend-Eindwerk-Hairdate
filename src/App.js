@@ -2,10 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect} from 'react-router-dom';
 
-import LogReg from './components/LogReg/LogReg'
-import Hello from './components/Base/Hello'
-import Diensten from './components/Base/Diensten'
+import './App.css';
+
 import Afspraak from './components/Afspraken/Afspraak'
+import MijnAfspraken from './components/Afspraken/MijnAfspraken';
+import Login from './components/LogReg/Login';
+import Register from './components/LogReg/Register';
 
 
 function App() {
@@ -19,25 +21,26 @@ function App() {
             exact
             path="/"
             render={() => {
-              return loggedIn ? <Redirect to="/hello" /> : <LogReg />;
+              return loggedIn ? <Redirect to="/afspraak" /> : <Login />;
             }}  
           />
           <Route
-            path="/hello"
+            exact
+            path="/register"
             render={() => {
-              return !loggedIn ? <Redirect to="/" /> : <Hello />
-            }}
-          />
-          <Route
-            path="/diensten"
-            render={() => {
-              return loggedIn ? <Diensten /> : ""
-            }}
+              return loggedIn ? <Redirect to="/afspraak" /> : <Register />;
+            }}  
           />
           <Route
             path="/afspraak"
             render={() => {
               return loggedIn ? <Afspraak /> : ""
+            }}
+          />
+          <Route
+            path="/mijnAfspraken"
+            render={() => {
+              return loggedIn ? <MijnAfspraken /> : ""
             }}
           />
       </div>

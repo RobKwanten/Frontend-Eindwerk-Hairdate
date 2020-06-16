@@ -1,0 +1,20 @@
+body{
+    place-items: center;
+  }
+  
+  main {
+    width: 600px;
+  }
+  
+  #regForm{
+    height: 80vh;
+    overflow: scroll;
+  }
+  
+  .forgot-password {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    opacity: 0.9;
+  }
+  

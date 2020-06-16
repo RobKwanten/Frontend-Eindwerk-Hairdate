@@ -16,5 +16,4 @@ export default function Logout(){
             <a href="#" onClick={logoutHandler}>Log out</a>
         </>
     )
-
 }

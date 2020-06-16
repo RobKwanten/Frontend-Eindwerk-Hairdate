@@ -9,19 +9,17 @@ export default () => {
     const {data} = useSelector(state => state.kapper) 
 
     return (
-        <>
-            <p>resultaat van opzoeking</p>
+        <div className="Results">
             <ul>
             {data.map(kapper => (
                 <li key={kapper.id} >
-                {kapper.naam}
                      <a href="#" onClick={()=>{
                         dispatch(setKapperAfspraak(kapper))
                         }}>
-                    Detail</a>
+                    {kapper.naam}</a>
                 </li> 
             ))}
             </ul>
-        </>
+        </div>
     )
 }

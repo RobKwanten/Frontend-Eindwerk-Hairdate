@@ -10,9 +10,10 @@ export default () => {
     const {data, error} = useSelector(state=>state.agenda)
 
     return (
-        <>
-        <DatePicker />
-        {data.length !== 0  ? <BeschikbareMomenten/> : <Error message={error}/>}
-        </>
+        <div class="AgendaContainer box">
+            <h2>Agenda</h2>
+            <DatePicker />
+            {data.length !== 0  ? <BeschikbareMomenten/> : <Error message={error}/>}
+        </div>
     )
 }

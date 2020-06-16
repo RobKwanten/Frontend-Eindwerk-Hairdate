@@ -23,9 +23,12 @@ export default () => {
     }
 
     return(
-        <form onSubmit={submitHandler}>
-            <input type="text" {...field}/>
-            <input type="submit" value="Zoek kapper" />
-        </form>
+        <div className="Innerform">
+            <div className="form-field">
+                <label for="kapper">Kapper</label>
+                <input type="text" name="kapper" {...field}/>
+            </div>
+            <input type="submit" value="Zoek" className="button" onClick={submitHandler}></input>
+        </div>
     )
 }

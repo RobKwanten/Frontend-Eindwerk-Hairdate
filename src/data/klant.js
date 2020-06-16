@@ -52,18 +52,18 @@ export const loginKlant = (username,password) => (dispatch) => {
         dispatch(setKlant(username));
         dispatch(setLoginSucces(response.data.token))
     })
-    .catch(error =>  dispatch(setLoginError(error.response.data.error)))
+    .catch(dispatch(setLoginError("login")))
 }
 
 export const setKlant = (username) => (dispatch) => {
     dispatch(setKlantStart())
     axiosJWT
-    .get(`${process.env.REACT_APP_API}/klants.json?email=${username}`)
+    .get(`${process.env.REACT_APP_API}/klants?email=${username}`)
     .then(response => {
-        console.log(response)
-        dispatch(setKlantSucces(response.data))
+        console.log(response.data['hydra:member'][0])
+        dispatch(setKlantSucces(response.data['hydra:member'][0]))
     })
-    .catch(error =>  dispatch(setLoginError(error.response.data.error)))
+    .catch(dispatch(setLoginError("Login")))
 }
 
 
@@ -110,7 +110,6 @@ export const setKlantSucces = (data) => ({
         "telnr": telnr   
     })
     .then(response => {
-        console.log(response[0])
         dispatch(setRegSucces(response.data[0]))
     })
     .catch(error =>  dispatch(setRegError(error.response.data.error)))

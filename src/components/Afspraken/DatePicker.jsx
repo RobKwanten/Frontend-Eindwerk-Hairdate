@@ -60,8 +60,9 @@ export default () => {
     }
 
     return( 
-        <>
-            <form onSubmit={handleSubmit}>
+        <div class="Innerform">
+            <div class="form-field">
+                <label for="datum">Datum</label>
                 <DatePicker
                 selected={selectedDate}
                 onChange={date =>{
@@ -72,8 +73,8 @@ export default () => {
                 minDate= {new Date()}
                 filterDate= {validDate}
                 />
-                <input type="submit" value="Zoek momenten" />
-            </form>  
-        </>
+            </div>
+            <input type="submit" value="Zoek" class="button" onClick={handleSubmit}></input> 
+        </div>
     )
 }
