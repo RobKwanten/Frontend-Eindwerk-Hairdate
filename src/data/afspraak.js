@@ -66,11 +66,11 @@ export const setAfspraakDetail = (data) => ({
   })
 
 
-export const makeAfspraak = (datum, begintijd, duur, klant, kapper, dienst) => dispatch => {
+export const makeAfspraak = (datum, begintijd, duur, klant, kapper, dienst, notities) => dispatch => {
     dispatch(makeAfspraakStart())
     axios
     .post(`${process.env.REACT_APP_API}/afspraak`,{
-        "notities": "",
+        "notities": notities,
         "datum": datum,
         "begintijd": begintijd,
         "duur": duur,

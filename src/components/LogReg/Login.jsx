@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 
 import { loginKlant } from "./../../data/klant"
-//import '../../logreg.css'
 
 export default function Login(){
     const dispatch= useDispatch();
@@ -12,12 +11,18 @@ export default function Login(){
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(loginKlant(email, password));
+        if (email === "" || password === "") {
+            alert("Vul alle velden in");
+            return null;
+          }
+        
+        dispatch(loginKlant(email, password))
+        
     }
 
     return (
-        <>
-            <main>
+        <body className="logregbody">
+            <main className="logregmain">
                 <h1>Hairdate</h1>
                 <form onSubmit={submitHandler}>
                     <nav>
@@ -40,6 +45,6 @@ export default function Login(){
                 </form> 
                 <a href="#0" className="forgot-password">Wachtwoord vergeten?</a> 
             </main>       
-        </>
+        </body>
     )
 }

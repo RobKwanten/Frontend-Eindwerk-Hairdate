@@ -22,8 +22,8 @@ export default function Register(){
     }
 
     return (
-        <>
-            <main>
+        <body className="logregbody">
+            <main className="logregmain">
                 <h1>Hairdate</h1>
                 <form id="regForm" onSubmit={submitHandler}>
                     <nav>
@@ -93,6 +93,6 @@ export default function Register(){
                     <input type="submit" value="Registreer" className="button"/>
                 </form>  
             </main>         
-        </>
+        </body>
     )
 }

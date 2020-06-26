@@ -8,7 +8,8 @@ import Afspraak from './components/Afspraken/Afspraak'
 import MijnAfspraken from './components/Afspraken/MijnAfspraken';
 import Login from './components/LogReg/Login';
 import Register from './components/LogReg/Register';
-
+import Logout from './components/LogReg/Logout';
+import MijnGegevens from './components/Gegevens/MijnGegevens';
 
 function App() {
 
@@ -41,6 +42,18 @@ function App() {
             path="/mijnAfspraken"
             render={() => {
               return loggedIn ? <MijnAfspraken /> : ""
+            }}
+          />
+          <Route
+            path="/mijnGegevens"
+            render={() => {
+              return loggedIn ? <MijnGegevens /> : ""
+            }}
+          />
+          <Route
+            path="/logout"
+            render={() => {
+              return loggedIn ? <Logout /> : ""
             }}
           />
       </div>

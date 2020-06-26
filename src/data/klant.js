@@ -20,24 +20,32 @@ export const initialState = {
             message:""
         },
         loading: false
+    },
+    put: {
+        error: "",
+        loading: false
     }
 }  
 
 
 // Action Types---------------------------------------------------------------------------------------------------------------------------
 
-export const KLANT_START_LOGIN= 'KLANT_START_LOGIN'
-export const KLANT_SUCCES_LOGIN= 'KLANT_SUCCES_LOGIN'
-export const KLANT_ERROR_LOGIN= 'KLANT_ERROR_LOGIN'
+const KLANT_START_LOGIN= 'KLANT_START_LOGIN'
+const KLANT_SUCCES_LOGIN= 'KLANT_SUCCES_LOGIN'
+const KLANT_ERROR_LOGIN= 'KLANT_ERROR_LOGIN'
 
-export const KLANT_START_SET= 'KLANT_START_SET'
-export const KLANT_SUCCES_SET= 'KLANT_SUCCES_SET'
+const KLANT_START_SET= 'KLANT_START_SET'
+const KLANT_SUCCES_SET= 'KLANT_SUCCES_SET'
 
-export const KLANT_START_REG = 'KLANT_START_REG'
-export const KLANT_SUCCES_REG = 'KLANT_SUCCES_REG'
-export const KLANT_ERROR_REG = 'KLANT_ERROR_REG'
+const KLANT_START_REG = 'KLANT_START_REG'
+const KLANT_SUCCES_REG = 'KLANT_SUCCES_REG'
+const KLANT_ERROR_REG = 'KLANT_ERROR_REG'
 
-export const KLANT_LOGOUT = 'KLANT_LOGOUT'
+const KLANT_START_PUT = 'KLANT_START_PUT'
+const KLANT_SUCCES_PUT = 'KLANT_SUCCES_PUT'
+const KLANT_ERROR_PUT = 'KLANT_ERROR_PUT'
+
+const KLANT_LOGOUT = 'KLANT_LOGOUT'
 
 // Action Creators------------------------------------------------------------------------------------------------------------------------
 
@@ -51,6 +59,7 @@ export const loginKlant = (username,password) => (dispatch) => {
     .then(response => {
         dispatch(setKlant(username));
         dispatch(setLoginSucces(response.data.token))
+        alert("Welkom")
     })
     .catch(dispatch(setLoginError("login")))
 }
@@ -120,13 +129,45 @@ export const setRegStart = () => ({
     type: KLANT_START_REG
   });
   
-  export const setRegSucces = (data) => ({
+export const setRegSucces = (data) => ({
     type: KLANT_SUCCES_REG,
     payload: data
   })
   
-  export const setRegError = (message) => ({
+export const setRegError = (message) => ({
     type: KLANT_ERROR_REG,
+    payload: message
+  })
+
+export const putKlant =  (id,naam,voornaam,postcode,gemeente,straat,huisnr,busnr,telnr) => dispatch => {
+    dispatch(setPutStart())
+    axiosJWT
+    .put(`${process.env.REACT_APP_API}/klants/${id}`,{
+        "naam": naam,
+        "voornaam": voornaam,
+        "postcode": postcode,
+        "gemeente": gemeente,
+        "straat": straat,
+        "busnr": busnr,
+        "telnr":telnr
+    })
+    .then(response => {
+        dispatch(setPutSucces(response.data))
+    })
+    .catch(dispatch(setPutError("Er ging iets mis")))
+}
+
+export const setPutStart = () => ({
+    type: KLANT_START_PUT
+  });
+  
+export const setPutSucces = (data) => ({
+    type: KLANT_SUCCES_PUT,
+    payload: data
+  })
+  
+export const setPutError = (message) => ({
+    type: KLANT_ERROR_PUT,
     payload: message
   })
 

@@ -10,7 +10,7 @@ export default () => {
     
     return(
         <>
-            <a onClick = {() => dispatch(getMijnAfspraken(email))}>Zoek Afspraken</a>
+            <input type="submit" value="Zoek afspraken" class="button" onClick = {() => dispatch(getMijnAfspraken(email))}></input>
         </>
     )
 }

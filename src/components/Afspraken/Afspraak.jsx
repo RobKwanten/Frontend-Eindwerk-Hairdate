@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import '../../plat.css'
 
+import Header from './../Base/Header'
 import Kappers from '../Kappers/Kappers'
 import KapperDetail from '../Kappers/KapperDetail'
 import Agenda from './Agenda'
@@ -13,14 +13,9 @@ export default () => {
 
     return (
         <html>
-            <body>
-                    <header>
-                        <div className="header">
-                            <h1>Hairdate</h1>
-                            <p>Welkom Rob</p>
-                        </div>
-                    </header>
-                    <main>
+            <body className="platbody">
+                    <Header/>
+                    <main className="platmain">
                         <div className="KappersForm Container">
                             <Kappers/>
                         </div>
@@ -37,8 +32,8 @@ export default () => {
                     <footer>
                         <nav>
                             <a href="#0" className="active">Nieuwe afspraak</a>
-                            <a href="#0">Mijn Afspraken</a>
-                            <a href="#0">Mijn gegevens</a>
+                            <a href="/mijnAfspraken">Mijn Afspraken</a>
+                            <a href="/mijnGegevens">Mijn gegevens</a>
                         </nav>
                     </footer>
                 </body>

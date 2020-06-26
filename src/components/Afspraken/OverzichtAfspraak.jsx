@@ -4,16 +4,16 @@ import {useSelector, useDispatch} from 'react-redux'
 import {makeAfspraak} from '../../data/afspraak'
 
 export default () => {
-    const [date, setDate] = useState()
+    const [notities, setNotities] = useState("")
+    console.log(notities)
 
     const dispatch = useDispatch();
     const {kapper,dienst,datum,beginuur} = useSelector(state => state.afspraak) 
     const {klant} = useSelector(state => state.klant)
     
-    console.log(datum, beginuur, dienst.duur, klant.id, kapper.id, dienst.id)
 
     const handleOnClick = () => {
-       dispatch(makeAfspraak(datum, beginuur, dienst.duur, klant.id, kapper.id, dienst.id))
+       dispatch(makeAfspraak(datum, beginuur, dienst.duur, klant.id, kapper.id, dienst.id,notities))
     }
 
     return (
@@ -32,7 +32,7 @@ export default () => {
                 <p>Uur: {beginuur}</p>
                 <div class="form-field">
                 <p>Notities:</p>
-                <textarea name="notities" rows="4" cols="50"></textarea>
+                <textarea name="notities" rows="4" cols="50" value={notities} onChange={(e)=>setNotities(e.target.value)}></textarea>
                 </div>
           </div>
           <button class="button" name="button">Maak afspraak</button>
