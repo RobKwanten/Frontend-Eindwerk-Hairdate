@@ -135,6 +135,14 @@ input {
   align-items: center;
 }
 
+.header div{
+  display: flex;
+  flex-direction: row;
+}
+
+.header div p{
+  padding-left: 2rem;
+}
 
 .plath1{
   font-size: 1.9rem;

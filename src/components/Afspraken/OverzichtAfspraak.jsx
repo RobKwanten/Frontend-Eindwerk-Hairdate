@@ -5,7 +5,6 @@ import {makeAfspraak} from '../../data/afspraak'
 
 export default () => {
     const [notities, setNotities] = useState("")
-    console.log(notities)
 
     const dispatch = useDispatch();
     const {kapper,dienst,datum,beginuur} = useSelector(state => state.afspraak) 
@@ -35,7 +34,7 @@ export default () => {
                 <textarea name="notities" rows="4" cols="50" value={notities} onChange={(e)=>setNotities(e.target.value)}></textarea>
                 </div>
           </div>
-          <button class="button" name="button">Maak afspraak</button>
+          <button onClick={handleOnClick} class="button" name="button">Maak afspraak</button>
         </div>
     )
 }

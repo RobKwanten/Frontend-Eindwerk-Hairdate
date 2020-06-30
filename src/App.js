@@ -35,25 +35,25 @@ function App() {
           <Route
             path="/afspraak"
             render={() => {
-              return loggedIn ? <Afspraak /> : ""
+              return loggedIn ? <Afspraak /> : <Login />
             }}
           />
           <Route
             path="/mijnAfspraken"
             render={() => {
-              return loggedIn ? <MijnAfspraken /> : ""
+              return loggedIn ? <MijnAfspraken /> : <Login />
             }}
           />
           <Route
             path="/mijnGegevens"
             render={() => {
-              return loggedIn ? <MijnGegevens /> : ""
+              return loggedIn ? <MijnGegevens /> : <Login />
             }}
           />
           <Route
             path="/logout"
             render={() => {
-              return loggedIn ? <Logout /> : ""
+              return loggedIn ? <Logout /> : <Login />
             }}
           />
       </div>

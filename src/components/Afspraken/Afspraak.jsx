@@ -9,7 +9,6 @@ import OverzichtAfspraak from './OverzichtAfspraak'
 
 export default () => {
     const {kapper,dienst,datum,beginuur} = useSelector(state => state.afspraak)
-    console.log(kapper,dienst,datum,beginuur)
 
     return (
         <html>

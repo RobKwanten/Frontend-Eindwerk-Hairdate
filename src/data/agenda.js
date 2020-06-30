@@ -23,7 +23,6 @@ export const getAgenda = (datum, duur, kapper) => dispatch => {
     axios
     .get(`${process.env.REACT_APP_API}/agenda?datum=${datum}&kapper=${kapper}&duur=${duur}`)
     .then(response => {
-        console.log(response)
         dispatch(setAgendaSucces(response.data))
     })
     .catch(dispatch(setAgendaError("API could not be reached")))

@@ -12,10 +12,10 @@ export default () => {
         <div className="Results">
             <ul>
             {data.map(kapper => (
-                <li key={kapper.id} >
-                     <a href="#" onClick={()=>{
-                        dispatch(setKapperAfspraak(kapper))
-                        }}>
+                <li key={kapper.id} onClick={()=>{
+                    dispatch(setKapperAfspraak(kapper))
+                    }}>
+                     <a href="#">
                     {kapper.naam}</a>
                 </li> 
             ))}

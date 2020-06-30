@@ -23,10 +23,10 @@ export default ({kapper}) => {
                 <h3>Diensten</h3>
                 <ul>
                 {kapper.dienstenKappers.map(dienst => (
-                    <li key={dienst.duur}><a href="#" onClick={()=>{
+                    <li key={dienst.duur} onClick={()=>{
                         dispatch(setDienstAfspraak(dienst))
                         dispatch(clearAgenda())
-                        }}>{dienst.Diensten.naam} {dienst.prijs}€</a></li>     
+                        }}><a href="#">{dienst.Diensten.naam} {dienst.prijs}€</a></li>     
                 ))}
                 </ul>
             </div>

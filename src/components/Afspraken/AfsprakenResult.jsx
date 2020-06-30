@@ -1,5 +1,5 @@
 import React from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import { DateFormat } from './../Helpers/TimeFormat'
 
 import {setAfspraakDetail} from '../../data/afspraak'
@@ -11,10 +11,10 @@ export default ({afspraken}) => {
         <>
             <ul>
             {afspraken.map(afspraak => (
-                <li><a href="#"onClick={(e)=>{
+                <li onClick={(e)=>{
                     e.preventDefault()
                     dispatch(setAfspraakDetail(afspraak))
-                   }}>{DateFormat(afspraak.datum)}</a></li>
+                   }}><a href="#">{DateFormat(afspraak.datum)}</a></li>
             ))}
             </ul>
         </>

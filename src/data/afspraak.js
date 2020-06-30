@@ -35,12 +35,11 @@ const CLEAR_AFSPRAAK = 'CLEAR_AFSPRAAK'
 
 // Action Creators------------------------------------------------------------------------------------------------------------------------
 
-export const getMijnAfspraken = (email) => dispatch => {
+export const getMijnAfspraken = (email,datum) => dispatch => {
     dispatch(fetchAfsprakenStart())
     axios
-    .get(`${process.env.REACT_APP_API}/afspraaks?Klant.email=${email}`)
+    .get(`${process.env.REACT_APP_API}/afspraaks?Klant.email=${email}&datum%5Bafter%5D=${datum}`)
     .then(response => {
-        console.log(response.data)
         dispatch(fetchAfsprakenSucces(response.data['hydra:member']))
     })
     .catch(dispatch(makeAfspraakError("API could not be reached")));
@@ -79,6 +78,7 @@ export const makeAfspraak = (datum, begintijd, duur, klant, kapper, dienst, noti
         "Dienst": dienst
     })
     .then(response => {
+        console.log("hallo")
         dispatch(makeAfspraakSucces())
     })
     .catch(dispatch(makeAfspraakError("API could not be reached")));

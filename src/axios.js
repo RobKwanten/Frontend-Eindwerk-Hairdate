@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const instance = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://wdev.be/wdev_rob/eindwerk/api",
   });
 
 instance.interceptors.request.use(

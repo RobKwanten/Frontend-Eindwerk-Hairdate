@@ -27,9 +27,9 @@ const appReducer = persistCombineReducers(persistConfig, {
 
 const rootReducer = (state, action) => {
   if (action.type === "KLANT_LOGOUT") {
-    window.localStorage.clear();
-    localStorage.clear();
+    localStorage.removeItem("persist:root");
     Cookies.remove("jwt");
+    state = undefined;
   }
   return appReducer(state, action);
 };

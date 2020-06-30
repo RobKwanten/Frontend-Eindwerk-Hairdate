@@ -119,9 +119,12 @@ export const setKlantSucces = (data) => ({
         "telnr": telnr   
     })
     .then(response => {
+        alert("Je bent geregistreerd, log nu in")
         dispatch(setRegSucces(response.data[0]))
     })
-    .catch(error =>  dispatch(setRegError(error.response.data.error)))
+    .catch(
+        dispatch(setRegError("Er ging iets mis"))
+        )
 }
 
 

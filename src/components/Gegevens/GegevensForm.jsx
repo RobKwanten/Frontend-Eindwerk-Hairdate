@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 
-import {putKlant} from './../../data/klant'
+import {setKlant,putKlant} from './../../data/klant'
 
 export default () => {
     const dispatch = useDispatch();
@@ -19,6 +19,7 @@ export default () => {
 
     const handleOnClick = () => {
         dispatch(putKlant(klant.id,naam,voornaam,postcode,gemeente,straat,huisnr,busnr,telnr))
+        dispatch(setKlant(klant.email))
         console.log(klant.id,naam,voornaam,postcode,gemeente,straat,huisnr,busnr,telnr)
     }
 
